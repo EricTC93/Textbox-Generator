@@ -1,9 +1,8 @@
-// $("#textinput").val("")
-
 $("#playButton").on("click",function(event) {
 	event.preventDefault();
 
 	$("#playButton").prop('disabled', true);
+	$("#stopButton").prop('disabled', false);
 
 	let speed = $("#textSpeed").val().trim();
 	speed = Number(speed);
@@ -21,10 +20,24 @@ $("#playButton").on("click",function(event) {
 
 });
 
+$("#stopButton").on("click",function(event) {
+	event.preventDefault();
+
+	$("#stopButton").prop('disabled', true);
+
+});
+
 function displayText(arr,str,spd) {
+
+	if ($("#stopButton").prop('disabled')) {
+		$("#playButton").prop('disabled', false);
+		$("#textdisplay").val("");
+		return;
+	}
 
 	if (arr.join("") === str) {
 		$("#playButton").prop('disabled', false);
+		$("#stopButton").prop('disabled', true);
 		return;
 	}
 
