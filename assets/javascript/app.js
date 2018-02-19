@@ -1,6 +1,26 @@
+document.onkeyup = function(event) {
+
+	userLetter = event.key;
+
+	if (userLetter !== "Enter") {
+		return;
+	}
+
+	if ($("#playButton").prop('disabled')) {
+		console.log("test");
+	}
+
+	else {
+		startText();
+	} 
+}
+
 $("#playButton").on("click",function(event) {
 	event.preventDefault();
+	startText();
+});
 
+function startText() {
 	$("#playButton").prop('disabled', true);
 	$("#stopButton").prop('disabled', false);
 
@@ -17,8 +37,7 @@ $("#playButton").on("click",function(event) {
 	let txtArr = txt.split("");
 
 	displayText(txtArr,"",speed);
-
-});
+}
 
 $("#stopButton").on("click",function(event) {
 	event.preventDefault();
@@ -26,6 +45,7 @@ $("#stopButton").on("click",function(event) {
 	$("#stopButton").prop('disabled', true);
 
 });
+
 
 function displayText(arr,str,spd) {
 
