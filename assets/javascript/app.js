@@ -41,7 +41,13 @@ function startText() {
 		$("#textSpeed").val(40);
 	}
 
-	let txtArr = txt.split("");
+	let txtArr = txt.split("#/#");
+
+	for (let i = 0; i<txtArr.length; i++) {
+		if(txtArr[i] !== "Break") {
+			txtArr[i] = txtArr[i].split("");
+		}
+	}
 
 	displayText(txtArr,"",speed);
 }
@@ -56,6 +62,8 @@ $("#stopButton").on("click",function(event) {
 
 function displayText(arr,str,spd) {
 
+	let blockArr = arr[0];
+
 	if ($("#stopButton").prop('disabled')) {
 		$("#playButton").prop('disabled', false);
 		$("#textDisplay").val("");
@@ -63,19 +71,36 @@ function displayText(arr,str,spd) {
 	}
 
 	if (endBlock) {
-		$("#textDisplay").val(arr.join(""));
-		str = arr.join("");
+		$("#textDisplay").val(blockArr.join(""));
+		str = blockArr.join("");
 		endBlock = false;
 	}
 
-	if (arr.join("") === str) {
-		$("#playButton").prop('disabled', false);
-		$("#stopButton").prop('disabled', true);
+	if (blockArr.join("") === str) {
+
+		arr.shift();
+
+		if(arr.length > 1 && arr[0] === "Break") {
+			arr.shift();
+			setTimeout(function() {displayText(arr,"",spd);},3000);
+		}
+
+		else {
+			$("#playButton").prop('disabled', false);
+			$("#stopButton").prop('disabled', true);
+		}
+
 		return;
 	}
 
 	let i = str.length;
-	let char = arr[i];
+
+	if (!blockArr[i]) {
+		console.log("Error: Out of Scope");
+		return;
+	}
+
+	let char = blockArr[i];
 	str = str + char;
 	$("#textDisplay").val(str);
 	setTimeout(function() {displayText(arr,str,spd);},spd);
