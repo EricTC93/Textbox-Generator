@@ -12,7 +12,7 @@ $("#playButton").on("click",function(event) {
 		$("#textSpeed").val(40);
 	}
 
-	let txt = $("#textinput").val().trim();
+	let txt = $("#textInput").val().trim();
 
 	let txtArr = txt.split("");
 
@@ -31,7 +31,7 @@ function displayText(arr,str,spd) {
 
 	if ($("#stopButton").prop('disabled')) {
 		$("#playButton").prop('disabled', false);
-		$("#textdisplay").val("");
+		$("#textDisplay").val("");
 		return;
 	}
 
@@ -44,6 +44,6 @@ function displayText(arr,str,spd) {
 	let i = str.length;
 	let char = arr[i];
 	str = str + char;
-	$("#textdisplay").val(str);
+	$("#textDisplay").val(str);
 	setTimeout(function() {displayText(arr,str,spd);},spd);
 }
