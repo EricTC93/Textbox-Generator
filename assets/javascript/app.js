@@ -1,3 +1,5 @@
+let endBlock = false;
+
 document.onkeyup = function(event) {
 
 	userLetter = event.key;
@@ -7,7 +9,7 @@ document.onkeyup = function(event) {
 	}
 
 	if ($("#playButton").prop('disabled')) {
-		console.log("test");
+		endBlock = true;
 	}
 
 	else {
@@ -21,6 +23,13 @@ $("#playButton").on("click",function(event) {
 });
 
 function startText() {
+
+	let txt = $("#textInput").val().trim();
+
+	if(txt === "") {
+		return;
+	}
+
 	$("#playButton").prop('disabled', true);
 	$("#stopButton").prop('disabled', false);
 
@@ -31,8 +40,6 @@ function startText() {
 		speed = 40;
 		$("#textSpeed").val(40);
 	}
-
-	let txt = $("#textInput").val().trim();
 
 	let txtArr = txt.split("");
 
@@ -53,6 +60,12 @@ function displayText(arr,str,spd) {
 		$("#playButton").prop('disabled', false);
 		$("#textDisplay").val("");
 		return;
+	}
+
+	if (endBlock) {
+		$("#textDisplay").val(arr.join(""));
+		str = arr.join("");
+		endBlock = false;
 	}
 
 	if (arr.join("") === str) {
