@@ -66,12 +66,12 @@ function displayText(arr,str,spd) {
 
 	if ($("#stopButton").prop('disabled')) {
 		$("#playButton").prop('disabled', false);
-		$("#textDisplay").val("");
+		$("#textDisplay").html("");
 		return;
 	}
 
 	if (endBlock) {
-		$("#textDisplay").val(blockArr.join(""));
+		$("#textDisplay").html(blockArr.join(""));
 		str = blockArr.join("");
 		endBlock = false;
 	}
@@ -102,6 +102,6 @@ function displayText(arr,str,spd) {
 
 	let char = blockArr[i];
 	str = str + char;
-	$("#textDisplay").val(str);
+	$("#textDisplay").html(str);
 	setTimeout(function() {displayText(arr,str,spd);},spd);
 }
